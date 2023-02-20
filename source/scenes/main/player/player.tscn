@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdyn55j8kkdm0"]
+
+[ext_resource type="Script" path="res://source/scenes/main/player/player.gd" id="1_j2jo1"]
+[ext_resource type="Shader" path="res://source/scenes/main/player/blackout.gdshader" id="2_gavju"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tpnxb"]
+radius = 0.287617
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlmml"]
+shader = ExtResource("2_gavju")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ofr6b"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_j2jo1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 0)
+cull_mask = 1032191
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -1.5)
+
+[node name="GrabSpot" type="Marker3D" parent="Camera3D"]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.4123, -0.556282, -1.02278)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_tpnxb")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="MarginContainer" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 200
+
+[node name="Label" type="Label" parent="UI/Control"]
+layout_mode = 2
+text = "E to interact"
+
+[node name="blackout" type="TextureRect" parent="UI"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_wlmml")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_ofr6b")
+
+[node name="WalkCheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, -2, 0)
+collision_mask = 2048

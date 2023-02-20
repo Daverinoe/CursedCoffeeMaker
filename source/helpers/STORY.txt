@@ -1,0 +1,44 @@
+Day 1:
+	Fade from black with animation to simulate getting out of bed
+	VA: "Ahhhh what a lovely morning! Time to try out my new coffee machine, then get ready for work!"
+	Task pops up: Make coffee
+	Making the coffee requires turning on the machine, refilling the water, adding the beans, waiting
+	for the coffee to come out. Each of these shows a task and has a VA line.
+	"What an amazing coffee! Time to finish getting ready."
+	Player showers, brushes teeth, heads out of door.
+	Fade to black.
+Day 2:
+	Fade from black.
+	"Urrggh, what a week. I definitely need that coffee this morning."
+	The rooms are slightly messier, with coffee cans over the place, and the rubbish bin is full of
+	coffee grounds.
+	Machine is bigger, takes whole counter top.
+	Need to refill water, empty grounds, refill water again, wait for coffee.
+	Have shower.
+	"Phew, I better have another coffee."
+	Redo coffee.
+	Brush teeth, leave.
+	Fade to black.
+Day 3:
+	Fade from black. Mess everywhere.
+	"This last week has been hell, I'm going to need all the coffee I can get!"
+	Coffee machine dominates kitchen, has replaced counter top.
+	Try to make coffee. Coffee machine asks for blood. Task: Use knife. Fade to black, then container full of
+	red liquid.
+	Make coffee. Have shower, full coffee in the machine. "Huh, I thought I drank that already..."
+	After drinking, go to leave but VA: "You know what, I better have another coffee before I go. You know,
+	for the road."
+	After coffee, Coffee machine asks to empty grounds, grounds container is full of fingers. "What the... 
+	I must still be half asleep. Those grounds looked like fingers!"
+	Go to work.
+Day 4:
+	Fade from black. Mess still everywhere. Open door to kitchen, leads to long dark corridor full of empty 
+	coffee cans and mounds of grounds. Flickering lights.
+	Eventually reach end, leads to void with enormous coffee machine. Machine reads: SACRIFICE FLESH
+	"I... I know what I need to do."
+	Task: Appease the machine
+	Climb to side, and jump in grinder.
+	Fade to black, with grinding sounds. Fade into machine pouring a fresh coffee, with the scrolling words
+	"ENJOY COFFEE".
+	
+	Roll Credits.

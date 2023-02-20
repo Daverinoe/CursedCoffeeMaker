@@ -1,0 +1,45 @@
+[gd_scene load_steps=11 format=3 uid="uid://da3vwo7mifje6"]
+
+[ext_resource type="PackedScene" uid="uid://bhvvk6k4vs13r" path="res://assets/models/doorway.glb" id="1_isl0a"]
+[ext_resource type="PackedScene" uid="uid://bt6cnr5y112f3" path="res://assets/models/door.glb" id="2_krv6o"]
+[ext_resource type="Script" path="res://source/scenes/main/house/DoorInteract.gd" id="3_2tlgc"]
+[ext_resource type="AudioStream" uid="uid://dms5361jmibff" path="res://assets/sfx/doors/door open 1.wav" id="4_r28px"]
+[ext_resource type="AudioStream" uid="uid://b07m64sdxr0a5" path="res://assets/sfx/doors/door open 2.wav" id="5_0flqc"]
+[ext_resource type="AudioStream" uid="uid://bfuwxe6xtkxyo" path="res://assets/sfx/doors/door open 12.wav" id="7_fifpg"]
+[ext_resource type="AudioStream" uid="uid://ce4hveq2tti2k" path="res://assets/sfx/doors/door open 3.wav" id="8_itxsc"]
+[ext_resource type="AudioStream" uid="uid://clrddp01ojcs3" path="res://assets/sfx/doors/door open 7.wav" id="12_grmgh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h1abl"]
+size = Vector3(0.801, 1.903, 0.098)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oordl"]
+streams_count = 5
+stream_0/stream = ExtResource("4_r28px")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_0flqc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("8_itxsc")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("12_grmgh")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("7_fifpg")
+stream_4/weight = 1.0
+
+[node name="Doorway" type="Node3D"]
+
+[node name="doorway" parent="." instance=ExtResource("1_isl0a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0, 0.75)
+
+[node name="door" parent="." instance=ExtResource("2_krv6o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.397531, 0, 0)
+
+[node name="DoorInteract" type="StaticBody3D" parent="door" groups=["reset"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.401434, 0, 0)
+script = ExtResource("3_2tlgc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door/DoorInteract"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.949, -0.004)
+shape = SubResource("BoxShape3D_h1abl")
+
+[node name="door_creak" type="AudioStreamPlayer" parent="door/DoorInteract"]
+stream = SubResource("AudioStreamRandomizer_oordl")

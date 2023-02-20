@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://do01kmifwuf3o"]
+
+[ext_resource type="Script" path="res://source/helpers/autoloads/quest_manager/quest_manager.gd" id="1_bnh7v"]
+
+[node name="QuestManager" type="Node"]
+script = ExtResource("1_bnh7v")
+
+[node name="TaskOverlay" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="TaskList" type="RichTextLabel" parent="TaskOverlay"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+anchors_preset = -1
+anchor_right = 0.392361
+anchor_bottom = 0.0925926
+offset_left = 52.0
+offset_top = 68.0
+offset_right = 52.0001
+offset_bottom = 68.0
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Leave for work."
+fit_content = true
+metadata/_edit_use_anchors_ = true

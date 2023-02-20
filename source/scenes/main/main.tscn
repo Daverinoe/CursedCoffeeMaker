@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://byhwma6bp3ebs"]
+
+[ext_resource type="Script" path="res://source/scenes/main/main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://8qf82s64ep2w" path="res://source/scenes/main/house/house.tscn" id="2_ef4si"]
+[ext_resource type="Material" uid="uid://bn7vlb6gtai8e" path="res://assets/materials/new_procedural_sky_material.tres" id="2_t6smm"]
+[ext_resource type="PackedScene" uid="uid://bdyn55j8kkdm0" path="res://source/scenes/main/player/player.tscn" id="3_eynud"]
+[ext_resource type="Script" path="res://source/scenes/main/WorldEnvironment.gd" id="3_y6sqe"]
+[ext_resource type="PackedScene" uid="uid://bxrtt2ok2blln" path="res://source/scenes/main/coffee_machine/coffee_machine.tscn" id="4_20773"]
+
+[sub_resource type="Sky" id="Sky_hb4f0"]
+sky_material = ExtResource("2_t6smm")
+
+[sub_resource type="Environment" id="Environment_3qheu"]
+background_mode = 2
+sky = SubResource("Sky_hb4f0")
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+fog_light_energy = 0.15
+volumetric_fog_density = 0.1493
+
+[node name="main" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3qheu")
+script = ExtResource("3_y6sqe")
+
+[node name="House" parent="." instance=ExtResource("2_ef4si")]
+
+[node name="Player" parent="." instance=ExtResource("3_eynud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02436, 0, -3.31023)
+safe_margin = 0.01
+
+[node name="Camera3D" parent="Player" index="0"]
+cull_mask = 1048573
+
+[node name="CoffeeMachine" parent="." instance=ExtResource("4_20773")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.596, 1, -5.126)
+
+[editable path="Player"]

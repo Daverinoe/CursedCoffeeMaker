@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://2gx42rrl2pad"]
+
+[ext_resource type="PackedScene" uid="uid://bxrtt2ok2blln" path="res://source/scenes/main/coffee_machine/coffee_machine.tscn" id="1_v3lcs"]
+
+[sub_resource type="Environment" id="Environment_ctgow"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_efa3w"]
+resource_local_to_scene = true
+size = Vector2(1, 0.5)
+orientation = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.856553, 2.34508)
+environment = SubResource("Environment_ctgow")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.955582, 0.294724, 0, -0.294724, 0.955582, -2.62744, 0.943004, 3.96503)
+
+[node name="CoffeeMachine" parent="." instance=ExtResource("1_v3lcs")]
+
+[node name="ViewportQuad" parent="CoffeeMachine" index="0"]
+mesh = SubResource("PlaneMesh_efa3w")
+
+[node name="Display" parent="CoffeeMachine/SubViewport" index="0"]
+visible = false
+
+[editable path="CoffeeMachine"]
+[editable path="CoffeeMachine/SubViewport/Display"]
+[editable path="CoffeeMachine/Beans"]

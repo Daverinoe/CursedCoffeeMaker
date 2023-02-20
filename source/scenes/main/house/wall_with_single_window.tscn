@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjy4i71jetxf0"]
+
+[ext_resource type="PackedScene" uid="uid://dhlso5yq667tv" path="res://assets/models/single_window.glb" id="1_3jgqv"]
+[ext_resource type="PackedScene" uid="uid://dxlf8x5r8d048" path="res://assets/models/wall_main.glb" id="2_kt4km"]
+[ext_resource type="PackedScene" uid="uid://df5penvhrexv" path="res://assets/models/wall_top.glb" id="3_u537t"]
+[ext_resource type="PackedScene" uid="uid://ndjdm7g3wq4t" path="res://assets/models/wall_base.glb" id="4_juy10"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hpi0c"]
+size = Vector3(2.02, 2.984, 0.342)
+
+[node name="WallWithSingleWindow" type="StaticBody3D"]
+
+[node name="single_window" parent="." instance=ExtResource("1_3jgqv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.3, 0.00793507)
+
+[node name="wall_main" parent="." instance=ExtResource("2_kt4km")]
+transform = Transform3D(0.5, 0, 0, 0, 2, 0, 0, 0, 2, 0.75, 0.3, 1.00594)
+
+[node name="wall_main2" parent="." instance=ExtResource("2_kt4km")]
+transform = Transform3D(0.5, 0, 0, 0, 2, 0, 0, 0, 2, -0.745, 0.299, 1.00594)
+
+[node name="wall_top2" parent="." instance=ExtResource("3_u537t")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.00792462, 1.29864, 0.985935)
+
+[node name="wall_top4" parent="." instance=ExtResource("3_u537t")]
+transform = Transform3D(-2, 0, -3.01992e-07, 0, 2, 0, 3.01992e-07, 0, -2, 0, 1.298, -0.974065)
+
+[node name="wall_base" parent="." instance=ExtResource("4_juy10")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.006, 0, 1.00594)
+
+[node name="wall_base3" parent="." instance=ExtResource("4_juy10")]
+transform = Transform3D(-2, 0, -3.01992e-07, 0, 2, 0, 3.01992e-07, 0, -2, 0.00628614, 0, -0.994065)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43457, 0)
+shape = SubResource("BoxShape3D_hpi0c")

@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://4npvuctj4c2u"]
+
+[ext_resource type="Script" path="res://source/scenes/menus/in_game_menu.gd" id="1_yd431"]
+[ext_resource type="Theme" path="res://assets/themes/main.theme" id="2_dukq8"]
+[ext_resource type="Script" path="res://source/scenes/menus/settings/custom_button.gd" id="2_u3iqt"]
+[ext_resource type="Script" path="res://source/scenes/menus/MarginContainer.gd" id="3_6d5lq"]
+
+[node name="InGameMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_yd431")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 108.0
+grow_vertical = 2
+theme = ExtResource("2_dukq8")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+script = ExtResource("3_6d5lq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer5"]
+layout_mode = 2
+text = "Resume"
+script = ExtResource("2_u3iqt")
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Settings"
+script = ExtResource("2_u3iqt")
+
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Quit"
+script = ExtResource("2_u3iqt")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer5/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer4/Quit" to="." method="_on_quit_pressed"]

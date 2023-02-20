@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnipsvd3134j4"]
+
+[ext_resource type="PackedScene" uid="uid://ndjdm7g3wq4t" path="res://assets/models/wall_base.glb" id="1_pci8s"]
+[ext_resource type="PackedScene" uid="uid://dxlf8x5r8d048" path="res://assets/models/wall_main.glb" id="2_hc3uy"]
+[ext_resource type="PackedScene" uid="uid://df5penvhrexv" path="res://assets/models/wall_top.glb" id="3_vwuvw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cxef"]
+size = Vector3(1.017, 1.453, 0.136)
+
+[node name="Wall" type="StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="wall_base" parent="." instance=ExtResource("1_pci8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00215268, -0.000282049, 0.497833)
+
+[node name="wall_base2" parent="." instance=ExtResource("1_pci8s")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.00215268, -0.000282049, -0.502049)
+
+[node name="wall_main" parent="." instance=ExtResource("2_hc3uy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00223422, 0.149718, 0.497942)
+
+[node name="wall_top" parent="." instance=ExtResource("3_vwuvw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00215268, 0.649718, 0.486833)
+
+[node name="wall_top2" parent="." instance=ExtResource("3_vwuvw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.00215268, 0.649718, -0.492201)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00315268, 0.726856, 0)
+shape = SubResource("BoxShape3D_4cxef")

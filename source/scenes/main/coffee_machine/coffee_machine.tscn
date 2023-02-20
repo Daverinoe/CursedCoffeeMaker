@@ -1,0 +1,648 @@
+[gd_scene load_steps=38 format=3 uid="uid://bxrtt2ok2blln"]
+
+[ext_resource type="Script" path="res://source/scenes/main/coffee_machine/coffee_machine.gd" id="1_ygwi4"]
+[ext_resource type="PackedScene" uid="uid://bjoywlnurf1fb" path="res://source/scenes/main/coffee_machine/display.tscn" id="2_yql83"]
+[ext_resource type="PackedScene" uid="uid://drewouf2wi3gq" path="res://assets/models/coffee_machine_mesh.tscn" id="3_0mn8r"]
+[ext_resource type="PackedScene" uid="uid://cq5wn3hn7bns7" path="res://assets/models/water_container.tscn" id="4_3e81y"]
+[ext_resource type="PackedScene" uid="uid://b8eegpwp4tmg3" path="res://source/scenes/main/coffee_machine/grounds_catcher.tscn" id="6_lqc7f"]
+[ext_resource type="PackedScene" uid="uid://dsjkf5yk4b4r5" path="res://assets/models/grinder.glb" id="6_sdr2l"]
+[ext_resource type="Script" path="res://source/scenes/main/coffee_machine/coffee_stream.gd" id="7_fir46"]
+[ext_resource type="AudioStream" uid="uid://dug82xf6e6pe8" path="res://assets/sfx/coffee_machine/initial_grind.ogg" id="7_pmp1k"]
+[ext_resource type="AudioStream" uid="uid://cklh4ejkydds3" path="res://assets/sfx/coffee_machine/remove_grounds.ogg" id="8_5jrql"]
+[ext_resource type="AudioStream" uid="uid://dvdifyr0hrjqp" path="res://assets/sfx/coffee_machine/pouring_coffee.ogg" id="8_x1y2k"]
+[ext_resource type="AudioStream" uid="uid://baafux6a1t3uk" path="res://assets/sfx/coffee_machine/remove_water.ogg" id="9_7v153"]
+[ext_resource type="AudioStream" uid="uid://bok8mpjcpg3mu" path="res://assets/sfx/coffee_machine/replace_grounds.ogg" id="9_l21wa"]
+[ext_resource type="AudioStream" uid="uid://b7a3sqelx8ha6" path="res://assets/sfx/coffee_machine/turning_on.ogg" id="10_j37a5"]
+[ext_resource type="AudioStream" uid="uid://of4lpktleojm" path="res://assets/sfx/coffee_machine/replace_water.ogg" id="10_vb1m7"]
+[ext_resource type="AudioStream" uid="uid://mudcc7tel5fj" path="res://assets/sfx/coffee_machine/GRIND.ogg" id="13_sqnqr"]
+[ext_resource type="PackedScene" uid="uid://btnlcrnud30yc" path="res://source/scenes/main/coffee_machine/cup.tscn" id="14_5bjn5"]
+[ext_resource type="PackedScene" uid="uid://d17jrjd3dweon" path="res://source/scenes/main/coffee_machine/beans.tscn" id="15_nit03"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j51w1"]
+noise_type = 2
+frequency = 0.227
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_65pbc"]
+noise = SubResource("FastNoiseLite_j51w1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jxs5"]
+emission = Color(0, 0.25098, 0.0196078, 1)
+emission_texture = SubResource("NoiseTexture2D_65pbc")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vkfsj"]
+resource_local_to_scene = true
+size = Vector2(1, 0.5)
+orientation = 2
+
+[sub_resource type="Animation" id="Animation_3olku"]
+resource_name = "GRIND"
+length = 5.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grinder:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(12.5664, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grinder2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-12.5664, 0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CoffeeMakerSounds")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("13_sqnqr")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="Animation" id="Animation_pcaju"]
+resource_name = "MAKE_COFFEE"
+length = 25.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coffee_stream:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(7.3, 23.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("water_container")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(7.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"make_coffee"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("grounds_catcher")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(7.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"increase_grounds"
+}]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CoffeeMakerSounds")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_pmp1k")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_x1y2k")
+}],
+"times": PackedFloat32Array(0, 7.1)
+}
+tracks/3/use_blend = true
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cup")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(7.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [17.0],
+"method": &"pour_coffee"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("grinder:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 6.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(12.5664, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("grinder2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 6.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-12.5664, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_raptm"]
+resource_name = "OPEN_GROUNDS"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grounds_catcher:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 2),
+"transitions": PackedFloat32Array(0.5, 1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.54), Vector3(0, 0, 0.023), Vector3(0, 0, 0.023), Vector3(0, 0.172766, 2.27376)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grounds_catcher:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 2),
+"transitions": PackedFloat32Array(1, 1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.4922, 0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CoffeeMakerSounds")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_5jrql")
+}],
+"times": PackedFloat32Array(-0.4)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="Animation" id="Animation_gsexy"]
+resource_name = "OPEN_WATER"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("water_container:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2),
+"transitions": PackedFloat32Array(2, -2, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(2.08165e-12, 0.3, 2.08165e-12), Vector3(0.6, 0.3, 0.175), Vector3(0.6, 0.3, 3.891)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("water_container:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("water_container:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.241257, 0.864078, 1.06491e-16)]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CoffeeMakerSounds")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_7v153")
+}],
+"times": PackedFloat32Array(-1)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="Animation" id="Animation_26wye"]
+resource_name = "REPLACE_CUP"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cup:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(2, -2, 1),
+"update": 0,
+"values": [Vector3(0.0585982, 1.16467, 2.80782), Vector3(0.0585982, 0.36907, 1.30464), Vector3(0.0585982, 0.36907, 0.642825)]
+}
+
+[sub_resource type="Animation" id="Animation_shdaf"]
+resource_name = "REPLACE_GROUNDS"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grounds_catcher:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, -2, 1, 0.5),
+"update": 0,
+"values": [Vector3(0, 0.172766, 2.27376), Vector3(0, 0, 0.023), Vector3(0, 0, 0.023), Vector3(0, 0, -0.54)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grounds_catcher:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, -2, 1, 1),
+"update": 0,
+"values": [Vector3(0.4922, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CoffeeMakerSounds")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_l21wa")
+}],
+"times": PackedFloat32Array(-1.2)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="Animation" id="Animation_4gwal"]
+resource_name = "REPLACE_WATER"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("water_container:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, -2, -2, 2),
+"update": 0,
+"values": [Vector3(0.6, 0.3, 3.891), Vector3(0.6, 0.3, 0.175), Vector3(2.08165e-12, 0.3, 2.08165e-12), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("water_container:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("water_container:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0.241257, 0.864078, 1.06491e-16), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CoffeeMakerSounds")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_vb1m7")
+}],
+"times": PackedFloat32Array(-0.1)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="Animation" id="Animation_txl5x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coffee_stream:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("water_container:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("water_container:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("water_container:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.48787e-16, 3.48787e-16, 3.48787e-16)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("grounds_catcher:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.54)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("grounds_catcher:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("cup:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0585982, 0.36907, 0.642825)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("grinder:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("grinder2:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v12vr"]
+resource_name = "TAKE_CUP"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cup:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(2, -2, 1),
+"update": 0,
+"values": [Vector3(0.0585982, 0.36907, 0.642825), Vector3(0.0585982, 0.36907, 1.30464), Vector3(0.0585982, 1.16467, 2.80782)]
+}
+
+[sub_resource type="Animation" id="Animation_q4ugi"]
+resource_name = "TURN_OFF"
+
+[sub_resource type="Animation" id="Animation_1hcok"]
+resource_name = "TURN_ON"
+length = 9.5
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CoffeeMakerSounds")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_j37a5")
+}],
+"times": PackedFloat32Array(0, 0.0001)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wv62g"]
+_data = {
+"GRIND": SubResource("Animation_3olku"),
+"MAKE_COFFEE": SubResource("Animation_pcaju"),
+"OPEN_GROUNDS": SubResource("Animation_raptm"),
+"OPEN_WATER": SubResource("Animation_gsexy"),
+"REPLACE_CUP": SubResource("Animation_26wye"),
+"REPLACE_GROUNDS": SubResource("Animation_shdaf"),
+"REPLACE_WATER": SubResource("Animation_4gwal"),
+"RESET": SubResource("Animation_txl5x"),
+"TAKE_CUP": SubResource("Animation_v12vr"),
+"TURN_OFF": SubResource("Animation_q4ugi"),
+"TURN_ON": SubResource("Animation_1hcok")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t04o1"]
+albedo_color = Color(0.678431, 0.372549, 0, 0.635294)
+metallic = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_kuvup"]
+material = SubResource("StandardMaterial3D_t04o1")
+radius = 0.01
+height = 0.2
+radial_segments = 16
+rings = 4
+
+[sub_resource type="Gradient" id="Gradient_cvk7d"]
+colors = PackedColorArray(0.26, 0.0736667, 0, 1, 0.55, 0.155833, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kan1t"]
+size = Vector3(1.164, 3, 2)
+
+[node name="CoffeeMachine" type="StaticBody3D"]
+script = ExtResource("1_ygwi4")
+
+[node name="ViewportQuad" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052, 1.274, 0.951)
+material_override = SubResource("StandardMaterial3D_3jxs5")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_vkfsj")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+canvas_cull_mask = 4293918722
+size = Vector2i(600, 400)
+render_target_update_mode = 4
+
+[node name="Display" parent="SubViewport" instance=ExtResource("2_yql83")]
+
+[node name="coffee_machine" parent="." instance=ExtResource("3_0mn8r")]
+
+[node name="water_container" parent="." instance=ExtResource("4_3e81y")]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+
+[node name="grounds_catcher" parent="." instance=ExtResource("6_lqc7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.54)
+
+[node name="grinder" parent="." instance=ExtResource("6_sdr2l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0559852, 1.19494, -0.1)
+
+[node name="grinder2" parent="." instance=ExtResource("6_sdr2l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00798518, 1.19494, -0.5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wv62g")
+}
+
+[node name="coffee_stream" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059, 1, 0.66)
+emitting = false
+amount = 16
+lifetime = 3.0
+fixed_fps = 30
+mesh = SubResource("SphereMesh_kuvup")
+spread = 90.0
+gravity = Vector3(0, -0.3, 0)
+initial_velocity_max = 0.02
+scale_amount_min = 0.9
+scale_amount_max = 1.2
+color_ramp = SubResource("Gradient_cvk7d")
+script = ExtResource("7_fir46")
+
+[node name="CoffeeMakerSounds" type="AudioStreamPlayer3D" parent="."]
+volume_db = 6.0
+max_distance = 15.0
+bus = &"Effects"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.055, 1.50288, 0)
+shape = SubResource("BoxShape3D_kan1t")
+
+[node name="cup" parent="." instance=ExtResource("14_5bjn5")]
+transform = Transform3D(-0.25, 0, 2.18557e-08, 0, 0.25, 0, -2.18557e-08, 0, -0.25, 0.0585982, 0.36907, 0.642825)
+
+[node name="Beans" parent="." instance=ExtResource("15_nit03")]
+
+[node name="Beans2" parent="Beans" index="0"]
+transform = Transform3D(-0.549987, 0, -0.00397916, 0, 1, 0, 0.00383954, 0, -0.569986, 0.05, 1.52, -0.35)
+
+[editable path="SubViewport/Display"]
+[editable path="Beans"]

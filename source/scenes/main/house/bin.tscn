@@ -1,0 +1,149 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4yle2evayd03"]
+
+[ext_resource type="Script" path="res://source/scenes/main/house/bin.gd" id="1_dawjt"]
+[ext_resource type="PackedScene" uid="uid://dqii2cvmwtwkp" path="res://assets/models/bin.glb" id="1_dmthu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4jqff"]
+size = Vector3(0.442, 0.413, 0.757)
+
+[sub_resource type="Animation" id="Animation_o6vls"]
+resource_name = "EMPTY_GROUNDS"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grab_point:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3, 5),
+"transitions": PackedFloat32Array(0.5, 1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(-1.88492e-08, 1.5708, 2.27844), Vector3(-1.88492e-08, 1.5708, 2.27844), Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grab_point:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3, 5),
+"transitions": PackedFloat32Array(0.5, 1, -2, 1),
+"update": 0,
+"values": [Vector3(-0.688027, 0.887941, -0.0026826), Vector3(-0.144, 0.878868, -0.142595), Vector3(-0.144, 0.878868, -0.142595), Vector3(-0.688027, 0.887941, -0.0026826)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dirt:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_grounds"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_upklr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grab_point:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grab_point:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.688027, 0.887941, -0.0026826)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dirt:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aynsx"]
+_data = {
+"EMPTY_GROUNDS": SubResource("Animation_o6vls"),
+"RESET": SubResource("Animation_upklr")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t53m2"]
+albedo_color = Color(0.419608, 0.223529, 0.0588235, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mdyco"]
+material = SubResource("StandardMaterial3D_t53m2")
+radius = 0.02
+height = 0.04
+
+[node name="Bin" type="StaticBody3D"]
+script = ExtResource("1_dawjt")
+
+[node name="bin" parent="." instance=ExtResource("1_dmthu")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -3.57628e-07, -1, 0, 1, -3.57628e-07, 0, 0.369532, 0)
+shape = SubResource("BoxShape3D_4jqff")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_aynsx")
+}
+
+[node name="Dirt" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796272, -0.030688)
+emitting = false
+amount = 32
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.57
+randomness = 0.31
+mesh = SubResource("SphereMesh_mdyco")
+emission_shape = 3
+emission_box_extents = Vector3(0.05, 0.01, 0.05)
+gravity = Vector3(0, -0.4, 0)
+scale_amount_min = 0.1
+hue_variation_max = 0.19
+
+[node name="grab_point" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.688027, 0.887941, -0.0026826)
+
+[editable path="bin"]
